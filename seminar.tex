@@ -4,7 +4,7 @@
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-
+\usepackage[croatian]{babel}
 
 
 
@@ -23,10 +23,15 @@
 \begin{frame}
 \frametitle{Što su Git Hooks?}
 \begin{itemize}
-    \item Git Hooks su skripte koje Git izvrava prije ili poslije dogadaja kao to su: commit, push i recieve. Git Hooks su ugradena znacajka - nema potrebe za preuzimanjem. Git Hooks se izvode na lokalnoj razini.
-    \item Ove skripte ogranicene su samo matom razvojnog programera.
-    \item Jezik skripte odreduje shebang (shebang je znakovna sekvencija koja se sastoji od znaka ljestv i usklicnika (#!) na pocetku skripte.) Zapisnik kao to je to obicno u Linux softveru. Imajte na umu da se to odnosi i na Windows jer Git za Windows radi pod MSYS (MSYS je zbirka GNU-ovih uslunih programa kao to su bash, make, gawk i grep kako bi se omogucilo stvaranje aplikacija i programa koji ovise o tradicionalno UNIX alatima. Namijenjen je za dopunu MinGW i nedostataka cmd shell-a.).
-    \item Git Hooks nalaze se ispod .git/hooks/direktorija vaeg spremita.
+    \item Git Hooks su skripte koje Git izvršava prije ili poslije dogadaja kao što su: commit, push i recieve. Git Hooks su ugradena znacajka - nema potrebe za preuzimanjem. Git Hooks se izvode na lokalnoj razini.
+    \item Ove skripte ogranicene su samo maštom razvojnog programera.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Što su Git Hooks?}
+\begin{itemize}
+    \item Jezik skripte odreduje shebang (shebang je znakovna sekvencija koja se sastoji od znaka ljestvi i usklicnika na pocetku skripte.) Zapisnik kao što je to obicno u Linux softveru. Imajte na umu da se to odnosi i na Windows jer Git za Windows radi pod MSYS (MSYS je zbirka GNU-ovih uslužnih programa kao što su bash, make, gawk i grep kako bi se omogucilo stvaranje aplikacija i programa koji ovise o tradicionalno UNIX alatima. Namijenjen je za dopunu MinGW i nedostataka cmd shell-a.).
+    \item Git Hooks nalaze se ispod .git/hooks/direktorija vašeg spremišta.
 \end{itemize}
 \end{frame}
 
@@ -44,18 +49,18 @@
 \begin{frame}
 \frametitle{applypatch-msg}
 \begin{itemize}
-    \item Ovaj hook se poziva s 'git am'. Potrebno je jedno parametar, ime datoteke koja sadri predloenu stavku log poruku.
+    \item Ovaj hook se poziva s 'git am'. Potrebno je jedno parametar, ime datoteke koja sadrži predloženu stavku log poruku.
     \item Ovom hook-u je dopusteno da mijenja poruku file-a na mjestu, i moze se iskoristiti da se normalizira poruka u neki standardni format.
-    \item Takoder se moe koristiti za odbijanje commit-a nakon pregleda datoteku poruke.
+    \item Takoder se može koristiti za odbijanje commit-a nakon pregleda datoteku poruke.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{pre-applypatch}
 \begin{itemize}
-    \item Ovaj hook se poziva s 'git am'. Ne treba nikakav parametar, i pozvana je  nakon primjene zakrpa, ali prije nego to se izvri commit.
+    \item Ovaj hook se poziva s 'git am'. Ne treba nikakav parametar, i pozvana je  nakon primjene zakrpa, ali prije nego što se izvrši commit.
     \item Ako izlazi s statusom koji nije nula, tada stablo za rad nece biti commitano nakon primjene zakrpa.
-    \item Moe se koristiti za pregledavanje radnog stabla i odbijanje izvravanja commit-a ako ne prode odredeni test.
+    \item Može se koristiti za pregledavanje radnog stabla i odbijanje izvršavanja commit-a ako ne prode odredeni test.
     \item Zadana postavka "pre-applypatch", kada je omogucena, pokrece "pre-commit" hook, ako je ovo omoguceno.
 \end{itemize}
 \end{frame} 
@@ -64,16 +69,15 @@
 \frametitle{post-applypatch}
 \begin{itemize}
     \item Ovaj hook se poziva s 'git am'. Ne treba nikakav parametar, i poziva se nakon primjene zakrpe i commit-a.
-    \item Taj hook se prvenstveno namijenjuje za obavijesti i ne moe utjecati na rezultat 'git am'.
+    \item Taj hook se prvenstveno namijenjuje za obavijesti i ne može utjecati na rezultat 'git am'.
 \end{itemize}
 \end{frame}
 	
 \begin{frame}
 \frametitle{pre-commit}
 \begin{itemize}
-    \item Ovaj hook se zove "git commit", a moe se zaobici s opcijom `--no-verify`. Nema nikakvih parametara.
+    \item Ovaj hook se zove "git commit", a može se zaobici s opcijom `--no-verify`. Nema nikakvih parametara.
     \item Izlazak s statusom koji nije nula iz ove skripte uzrokuje da se naredba "git commit" prekine prije stvaranja obveze.
-    \item Sve hooks "git commit" se pozivaju na environment varijabla "GIT_EDITOR =:" ako naredba ne pojavi uredivac za izmjenu poruke obveze.
 \end{itemize}
 \end{frame}
 	
@@ -83,7 +87,7 @@
     \item Ovaj hook se poziva s 'git commit' odmah nakon pripreme zadane poruke zapisnika i prije pokretanja uredivaca.
     \item Potrebno je jedan do tri parametra.
     \begin{enumerate}
-        \item naziv datoteke koji sadri poruku log zapisa.
+        \item naziv datoteke koji sadrži poruku log zapisa.
         \item izvor commit poruke- moze biti "message", "template", "merge", "squash" i "commit"
     \end{enumerate}
     \item Ako izlazni status nije nula, "git commit" ce se prekinuti.
@@ -94,14 +98,14 @@
 \begin{frame}
 \frametitle{commit-msg}
 \begin{itemize}
-    \item Ovaj se hook poziva 'git commit' i 'git merge', i to moe biti
+    \item Ovaj se hook poziva 'git commit' i 'git merge', i to može biti
 zaobideno s opcijom "--no-verify".
     \item Potreban je samo jedan parametar:
     \begin{itemize}
-        \item naziv datoteke koja sadri predloenu poruku log zapisa.
+        \item naziv datoteke koja sadrži predloženu poruku log zapisa.
     \end{itemize}
     \item Izlazak s statusom koji nije nula uzrokuje naredbu za prekid.
-    \item Hook-u je doputeno uredivanje datoteke poruke na mjestu.
+    \item Hook-u je dopušteno uredivanje datoteke poruke na mjestu.
     \item Zadana "commit-msg" kuka, kada je omogucena, detektira duplikate "Signed-off-by" linija i prekida commit ako je pronadena jedna.
 \end{itemize}
 \end{frame}
@@ -109,26 +113,26 @@ zaobideno s opcijom "--no-verify".
 \begin{frame}
 \frametitle{post-commit}
 \begin{itemize}
-    \item Ovaj hook se poziva s 'git commit'. Ne treba nikakvih parametara i pozvan je nakon izvrenja commit-a.
-    \item Taj je hook prvenstveno namijenjem obavijestima i ne moe utjecati na ishod "git commita".
+    \item Ovaj hook se poziva s 'git commit'. Ne treba nikakvih parametara i pozvan je nakon izvršenja commit-a.
+    \item Taj je hook prvenstveno namijenjem obavijestima i ne može utjecati na ishod "git commita".
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{pre-rebase}
 \begin{itemize}
-    \item Ovaj hook naziva se 'git rebase' i moe se koristiti za sprjecavanje grane od re-basea. Kuka se moe pozvati s jednim ili dva parametra.
+    \item Ovaj hook naziva se 'git rebase' i može se koristiti za sprjecavanje grane od re-basea. Kuka se može pozvati s jednim ili dva parametra.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{post-checkout}
 \begin{itemize}
-    \item Ovaj se hook poziva kada se pokrene git checkout nakon auriranja radnog stabla.
+    \item Ovaj se hook poziva kada se pokrene git checkout nakon ažuriranja radnog stabla.
     \item Parametri:
     \begin{itemize}
 	    \item ref prethodnog HEAD-a
-	    \item ref novog HEAD-a koji moe, ali i ne mora biti promijenjen
+	    \item ref novog HEAD-a koji može, ali i ne mora biti promijenjen
 	    \item flag koji pokazuje je li checkout bio brach checkout ili file checkout
 	\end{itemize}
     \item Ne utjece na ishod checkouta.
@@ -143,25 +147,25 @@ zaobideno s opcijom "--no-verify".
         \item null-ref
         \item ref novog HEAD-a i flag su uvijek 1 kao i za git worktree add naredbu ako se ne koristi --no-checkout
     \end{itemize}
-    \item Ovaj se hook moe koristiti za provodenje provjere valjanosti repozitorija, automatsko prikazivanje razlika od prethodnog HEAD-a ako su razliciti ili za postavljanje postavki radnog direktorija.
+    \item Ovaj se hook može koristiti za provodenje provjere valjanosti repozitorija, automatsko prikazivanje razlika od prethodnog HEAD-a ako su razliciti ili za postavljanje postavki radnog direktorija.
 \end{itemize}
 \end{frame}
 	
 \begin{frame}
 \frametitle{post-merge}
 \begin{itemize}
-    \item Ovaj se hook poziva kada se pokrene git merge to se dogada kada se obavi git pull na lokalnom repozitoriju.
+    \item Ovaj se hook poziva kada se pokrene git merge što se dogada kada se obavi git pull na lokalnom repozitoriju.
     \item Ima jedan parametar, statusni flag koji specifira je li ili nije merge koji je obavljen squash merge.
-    \item Ne utjece na ishod naredbe git merge i ne izvrava se ako nastanu konflikti.
-    \item Moe se koristiti s odgovarajucim pre-commit hookom za spremanje i vracanje bilo kojeg oblika metapodataka povezanih s radnim stablom npr. doputenja, vlasnitvo itd.
+    \item Ne utjece na ishod naredbe git merge i ne izvršava se ako nastanu konflikti.
+    \item Može se koristiti s odgovarajucim pre-commit hookom za spremanje i vracanje bilo kojeg oblika metapodataka povezanih s radnim stablom npr. dopuštenja, vlasništvo itd.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{pre-push}
 \begin{itemize}
-    \item Ovaj se hook poziva kada se pokrene naredba git push i moe se koristiti za prekidanje izvravanja.
-    \item Poziva se s dva parametra koji daju ime i lokaciju remote-a, ako remote nije koriten obje vrijednosti ce biti jednake. 
+    \item Ovaj se hook poziva kada se pokrene naredba git push i može se koristiti za prekidanje izvršavanja.
+    \item Poziva se s dva parametra koji daju ime i lokaciju remote-a, ako remote nije korišten obje vrijednosti ce biti jednake. 
     \item Informacije o tome što treba biti pushano:
     \begin{itemize}
         \item <local ref> SP <local sha1> SP <remote ref> SP <remote sha1> LF
@@ -170,32 +174,32 @@ zaobideno s opcijom "--no-verify".
     \begin{itemize}
         \item refs/heads/master 67890 refs/heads/foreign 12345
     \end{itemize} 
-    \item Ako ovaj hook izlazi sa statusom koji nije nula, git push ce se prekinuti bez izvravanja.
+    \item Ako ovaj hook izlazi sa statusom koji nije nula, git push ce se prekinuti bez izvršavanja.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{pre-receive}
 \begin{itemize}
-    \item Ovaj se hook poziva s git-receive-pack naredbom kada reagira na "git push" i aurira referencu na repozitorij.
-    \item Poziva se prije auriranja refova na remote repozitoriju. Njegov izlazni status odreduje je li auriranje uspjelo.
-    \item Izvrava se jednom za receive operaciju. Nema argumenata, ali za svaki ref koji se aurira dobija liniju:
+    \item Ovaj se hook poziva s git-receive-pack naredbom kada reagira na "git push" i ažurira referencu na repozitorij.
+    \item Poziva se prije ažuriranja refova na remote repozitoriju. Njegov izlazni status odreduje je li ažuriranje uspjelo.
+    \item Izvršava se jednom za receive operaciju. Nema argumenata, ali za svaki ref koji se ažurira dobija liniju:
     \begin{itemize}
         \item <old-value> SP <new-value> SP <ref-name> LF
     \end{itemize}
-    \item Ako hook izlazi sa statusom koji nije nula, refovi nece biti aurirani.
-    \item Ako hook izade sa statusom nula, auriranje individualnih refova jo uvijek moe biti zaustavljeno s update hook-om.
+    \item Ako hook izlazi sa statusom koji nije nula, refovi nece biti ažurirani.
+    \item Ako hook izade sa statusom nula, ažuriranje individualnih refova još uvijek može biti zaustavljeno s update hook-om.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{update}
 \begin{itemize}
-    \item Ovaj se hook poziva s naredbom git-receive-pack kada reagira na "git push" i aurira reference u repozitoriju.
-    \item Poziva se prije auriranja refova na remote repozitoriju. Njegov izlazni status odredujue je li auriranje uspjelo.
-    \item Hook se izvrava jednom za svaki ref koji se mora aurirati i uzima tri parametra:
+    \item Ovaj se hook poziva s naredbom git-receive-pack kada reagira na "git push" i ažurira reference u repozitoriju.
+    \item Poziva se prije ažuriranja refova na remote repozitoriju. Njegov izlazni status odredujue je li ažuriranje uspjelo.
+    \item Hook se izvršava jednom za svaki ref koji se mora ažurirati i uzima tri parametra:
     \begin{itemize}
-        \item Ime refa koji se aurira
+        \item Ime refa koji se ažurira
         \item Stari object name u refu
         \item Novi object name koji ce se spremiti u ref
     \end{itemize}
@@ -204,21 +208,20 @@ zaobideno s opcijom "--no-verify".
 \begin{frame}
 \frametitle{update}
 \begin{itemize}
-    \item Ako je izlazni status nula, hook doputa auriranje.
-    \item Ako je izlazni status nije nula onda se prekida auriranje.
-    \item Ovaj se hook moe koristiti da bi se prekinulo forsirano auriranje.
-    \item U okruenju koje ogranicava priatuo korisnika samo za git naredbe preko ice, ovaj se hook moe koristiti za 
-    \item implementaciju kontrole pristupa bez oslanjanja na vlasnitvo nad datotekama.
+    \item Ako je izlazni status nula, hook dopušta ažuriranje.
+    \item Ako je izlazni status nije nula onda se prekida ažuriranje.
+    \item Ovaj se hook može koristiti da bi se prekinulo forsirano ažuriranje.
+    \item U okruženju koje ogranicava pristup korisnika samo za git naredbe preko žice, ovaj se hook može koristiti za implementaciju kontrole pristupa bez oslanjanja na vlasništvo nad datotekama.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{post-receive}
 \begin{itemize}
-    \item Ovaj se hook poziva s "git-receive-pack" naredbom kada reagira na "git push" i aurira reference u repozitoriju.
-    \item Izvrava se na remote repozitoriju nakon to su svi refovi aurirani.
-    \item Izvrava se jednom za operaciju receive. Ne uzima argumente.
-    \item Ne utjece na ishod "git-receive-pack" jer je pozvan nakon to je pravi posao gotov.
+    \item Ovaj se hook poziva s "git-receive-pack" naredbom kada reagira na "git push" i ažurira reference u repozitoriju.
+    \item Izvršava se na remote repozitoriju nakon što su svi refovi ažurirani.
+    \item Izvršava se jednom za operaciju receive. Ne uzima argumente.
+    \item Ne utjece na ishod "git-receive-pack" jer je pozvan nakon što je pravi posao gotov.
     \item Zadani post-receive hook je prazan, ali postoji primjerak skripte "post-receive-email" naveden u contrib/hooks direktoriju.
 
 \end{itemize}
@@ -227,19 +230,19 @@ zaobideno s opcijom "--no-verify".
 \begin{frame}
 \frametitle{post-update}
 \begin{itemize}
-    \item Ovaj se hook poziva s "git-receive-pack" naredbom kada regira na "git push" i aurira reference u repozitoriju.
-    \item Izvrava se na remote repozitoriju nakon to su svi refovi aurirani.
-    \item Potreban je promjenjivi broj parametara, od kojih je svaki naziv refa koji je auriran.
-    \item Ovaj je hook prvenstveno namijenjen obavijestima i ne moe utjecati na ishod "git-receive-pack" naredbe.
+    \item Ovaj se hook poziva s "git-receive-pack" naredbom kada regira na "git push" i ažurira reference u repozitoriju.
+    \item Izvršava se na remote repozitoriju nakon što su svi refovi ažurirani.
+    \item Potreban je promjenjivi broj parametara, od kojih je svaki naziv refa koji je ažuriran.
+    \item Ovaj je hook prvenstveno namijenjen obavijestima i ne može utjecati na ishod "git-receive-pack" naredbe.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{push-to-checkout}
 \begin{itemize}
-    \item Ovaj se hook poziva s "git-receive-pack" naredbom kada regira na "git push" i aurira reference u repozitoriju a kada push pokua aurirati granu koja je trenutno "checked out" i "receive.denyCurrentBranch" konfiguracijska varijabla postavljena na "updateInstead". Takav je push nedoputen ako radno stablo i indeks remote repozitorija imaju razlike u odnosu na trenutni "checked out" commit. Ovaj hook koristi se za prelaenje preko tog zadanog ponaanja.
-    \item Hook prima commit s kojim ce se vrh trenutne grane aurirati.
-    \item Moe izaci sa statusom koji nije nula da odbije push ili moe napraviti potrebne promjene na radnom stablu i indeksu da ih dovede u eljeno stanje kada je vrh trenutnog stabla auriran na novi commit, i izaci sa statusom nula.
+    \item Ovaj se hook poziva s "git-receive-pack" naredbom kada regira na "git push" i ažurira reference u repozitoriju a kada push pokuša ažurirati granu koja je trenutno "checked out" i "receive.denyCurrentBranch" konfiguracijska varijabla postavljena na "updateInstead". Takav je push nedopušten ako radno stablo i indeks remote repozitorija imaju razlike u odnosu na trenutni "checked out" commit. Ovaj hook koristi se za prelaženje preko tog zadanog ponašanja.
+    \item Hook prima commit s kojim ce se vrh trenutne grane ažurirati.
+    \item Može izaci sa statusom koji nije nula da odbije push ili može napraviti potrebne promjene na radnom stablu i indeksu da ih dovede u željeno stanje kada je vrh trenutnog stabla ažuriran na novi commit, i izaci sa statusom nula.
 \end{itemize}
 \end{frame}
 
@@ -259,14 +262,14 @@ zaobideno s opcijom "--no-verify".
     \begin{itemize}
         \item <old-sha1> SP <new-sha1> [SP <extra-info>]LF
     \end{itemize}
-    \item Hook se uvijek pokrece nakon to se dogodi automatsko kopiranje biljeki i stoga ima pristup tim biljekama.
+    \item Hook se uvijek pokrece nakon što se dogodi automatsko kopiranje bilješki i stoga ima pristup tim bilješkama.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{sendemail-validate}
 \begin{itemize}
-    \item Ovaj se hook poziva s naredbom "git send-email". Potreban je jedan parametar, ime datoteke koja sadri email koji treba biti poslan.
+    \item Ovaj se hook poziva s naredbom "git send-email". Potreban je jedan parametar, ime datoteke koja sadrži email koji treba biti poslan.
     \item Izlaskom sa statusom koji nije nula "git send-email" se prekida prije slanja emailova.
 
 \end{itemize}
@@ -277,10 +280,10 @@ zaobideno s opcijom "--no-verify".
 \begin{itemize}
     \item Ovaj se hook poziva kada je konfiguracijska opcija core.fsmonitor poslana u .git/hooks/fsmonitor-watchman.
     \item Uzima dva argumenta, verziju (trenutno 1) i vrijeme u proteklim nanosekundama od ponoci, 1. sijecnja 1970.
-    \item Hook bi trebao poslati listu datoteka u radnom direktoriju koji su se promijenili od traenog vremena.
+    \item Hook bi trebao poslati listu datoteka u radnom direktoriju koji su se promijenili od traženog vremena.
     \item Git ce ograniciti koje datoteke pregledava kao i koje direktorije pregledava.
-    \item Izlazni status odreduje hoce li git koristiti podatke iz hooka da ogranici pretraivanje.
-    \item U slucaju greke vratiti ce se na verificiranje svih datoteka i foldera.
+    \item Izlazni status odreduje hoce li git koristiti podatke iz hooka da ogranici pretraživanje.
+    \item U slucaju greške vratiti ce se na verificiranje svih datoteka i foldera.
 \end{itemize}
 \end{frame}
 
